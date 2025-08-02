@@ -4,10 +4,10 @@ import ru.hogwarts.school.model.Faculty;
 
 import java.util.List;
 
-public interface FacultyService {
+public interface  FacultyService {
     Faculty addFaculty (Faculty faculty);
     Faculty findFaculty (Long id);
-    Faculty aditFaculty (Long id, Faculty faculty);
+    Faculty aditFaculty ( Faculty faculty);
     void deleteFaculty (Long id);
     List<Faculty> findByColorIgnoreCase(String color);
 

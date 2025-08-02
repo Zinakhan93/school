@@ -1,7 +1,9 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 import java.util.List;
@@ -26,14 +28,19 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student editStudent(Long id, Student student) {
+    public Student editStudent( Student student) {
+        if(!studentRepository.existsById(student.getId())){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found with id: " + student.getId());
+        }
         return studentRepository.save(student);
     }
 
     @Override
     public void deleteStudent(Long id) {
-        studentRepository.deleteById(id);
-
+        Student student = findStudent(id);
+        if (student != null) {
+            studentRepository.deleteById(id);
+        }
     }
     @Override
     public List<Student> findByAge(int age) {

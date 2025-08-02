@@ -1,16 +1,18 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repositories.FacultyRepository;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
     private final FacultyRepository facultyRepository;
-
+@Autowired
     public FacultyServiceImpl(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
@@ -26,13 +28,16 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Faculty aditFaculty(Long id, Faculty faculty) {
-       return facultyRepository.save(faculty);
+    public Faculty aditFaculty( Faculty faculty){
+        if (!facultyRepository.existsById(faculty.getId())) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Faculty not found with id: " + faculty.getId());
+        }
+        return facultyRepository.save(faculty);
     }
 
     @Override
     public void deleteFaculty(Long id) {
-        Faculty faculty = findFaculty(id);
+        Faculty faculty =  findFaculty(id);
         if (faculty != null) {
             facultyRepository.deleteById(id);
         }

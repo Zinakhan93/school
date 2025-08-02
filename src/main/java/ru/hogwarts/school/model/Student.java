@@ -1,10 +1,16 @@
 package ru.hogwarts.school.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
-
+@Entity
 public class Student {
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private int age;

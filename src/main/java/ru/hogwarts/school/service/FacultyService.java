@@ -9,6 +9,8 @@ public interface FacultyService {
     Faculty findFaculty (Long id);
     Faculty aditFaculty (Long id, Faculty faculty);
     void deleteFaculty (Long id);
-    List<Faculty> findByColor(String color);
+    List<Faculty> findByColorIgnoreCase(String color);
+
+
 
 }

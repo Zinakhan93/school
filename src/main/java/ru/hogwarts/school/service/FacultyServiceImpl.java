@@ -1,6 +1,6 @@
 package ru.hogwarts.school.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class FacultyServiceImpl implements FacultyService {
     private final FacultyRepository facultyRepository;
-@Autowired
+
     public FacultyServiceImpl(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
     }
@@ -38,9 +38,10 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public void deleteFaculty(Long id) {
         Faculty faculty =  findFaculty(id);
-        if (faculty != null) {
-            facultyRepository.deleteById(id);
+        if (faculty == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Faculty not found with id: ");
         }
+        facultyRepository.deleteById(id);
     }
     @Override
     public List<Faculty> findByColorIgnoreCase(String color) {

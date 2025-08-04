@@ -1,13 +1,11 @@
 package ru.hogwarts.school.service;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -38,9 +36,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void deleteStudent(Long id) {
         Student student = findStudent(id);
-        if (student != null) {
-            studentRepository.deleteById(id);
+        if (student == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student not found with id: ");
         }
+        studentRepository.deleteById(id);
     }
     @Override
     public List<Student> findByAge(int age) {

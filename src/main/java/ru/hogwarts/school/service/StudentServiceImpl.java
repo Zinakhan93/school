@@ -45,12 +45,5 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findByAge(int age) {
        return studentRepository.findByAge(age);
     }
-    /*Фильтрация по возрасту ( второй способ )
-	public List<Student> findByAge(int age) {
-	    List<Student> result = new ArrayList<>();
-	    for (Student s : students.values()) {
-	        if (s.getAge() == age) result.add(s);
-	    }
-	    return result;
-	}*/
+
 }

@@ -4,6 +4,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
+
+import java.util.Collection;
 import java.util.List;
 
 
@@ -45,5 +47,24 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> findByAge(int age) {
        return studentRepository.findByAge(age);
     }
+
+
+    // Дополнительные методы для отображения всех и для удаления
+    @Override
+    public Collection<Student> findAllStudent(){
+        return studentRepository.findAll();
+    }
+    @Override
+    public void deleteAllStudent(){
+        studentRepository.deleteAll();
+    }
+
+    // ДЗ 2 по базам данных
+
+    @Override
+    public List<Student> findByAgeBetween(int minAge, int maxAge) {
+        return studentRepository.findByAgeBetween(minAge, maxAge);
+    }
+
 
 }

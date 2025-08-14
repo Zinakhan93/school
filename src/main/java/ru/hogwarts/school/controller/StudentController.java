@@ -3,19 +3,24 @@ package ru.hogwarts.school.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.repositories.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
+    private final StudentRepository studentRepository;
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, StudentRepository studentRepository) {
         this.studentService = studentService;
+        this.studentRepository = studentRepository;
     }
 
     @GetMapping("{id}")
@@ -49,6 +54,33 @@ public class StudentController {
         }
         return ResponseEntity.ok(Collections.emptyList());
     }
+    //Дополнительные методы для отображения всех и для удаления;
+    @GetMapping ("/All")
+    public ResponseEntity<Collection<Student>>findAllStudents(){
+        return ResponseEntity.ok(studentService.findAllStudent());
+    }
+    @DeleteMapping ("/All")
+    public ResponseEntity<Void>deleteAllStudents(){
+        studentService.deleteAllStudent();
+        return ResponseEntity.ok().build();
+    }
+    // Дз 2 по баззам данных
+    @GetMapping("/age-between")
+    public ResponseEntity<List<Student>> getStudentsByAgeRange(
+            @RequestParam int minAge,
+            @RequestParam int maxAge) {
+        List<Student> students = studentService.findByAgeBetween(minAge, maxAge);
+        return ResponseEntity.ok(students);
+    }
+    @GetMapping("/{id}/faculty")
+    public ResponseEntity<Faculty> getStudentFaculty(@PathVariable Long id) {
+        Student student = studentService.findStudent(id);
+        if (student == null || student.getFaculty() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(student.getFaculty());
+    }
+
 
 }
 

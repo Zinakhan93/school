@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repositories.FacultyRepository;
+
+import java.util.Collection;
 import java.util.List;
 
 
@@ -43,8 +45,18 @@ public class FacultyServiceImpl implements FacultyService {
         }
         facultyRepository.deleteById(id);
     }
+
+
+ // Дополнительные методы для отображения всех и для удаления
+    public Collection <Faculty> findAll(){
+        return facultyRepository.findAll();
+    }
+    public void deleteAllFaculty(){
+        facultyRepository.deleteAll();
+    }
+
     @Override
-    public List<Faculty> findByColorIgnoreCase(String color) {
-        return facultyRepository.findByColorContainingIgnoreCase(color);
+    public List<Faculty> findByNameOrColorIgnoreCase(String name, String color) {
+        return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
     }
 }

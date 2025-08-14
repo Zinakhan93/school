@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import ru.hogwarts.school.model.Faculty;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface  FacultyService {
@@ -9,8 +10,13 @@ public interface  FacultyService {
     Faculty findFaculty (Long id);
     Faculty aditFaculty ( Faculty faculty);
     void deleteFaculty (Long id);
-    List<Faculty> findByColorIgnoreCase(String color);
 
 
+
+// дополнительные методы
+   Collection<Faculty> findAll();
+    void deleteAllFaculty();
+    // ДЗ 2 базза данных
+    public List<Faculty> findByNameOrColorIgnoreCase(String name, String color);
 
 }

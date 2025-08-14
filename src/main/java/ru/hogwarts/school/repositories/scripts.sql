@@ -8,3 +8,11 @@ SELECT name FROM student;
  SELECT * FROM student WHERE age < id;
 --5. Получить всех студентов упорядоченных по возрасту (по возрастанию)
  SELECT * FROM student ORDER BY age;
+select s. *from faculty as f, student as s
+where s.faculty_id = f.id;
+
+
+
+
+
+

@@ -1,5 +1,7 @@
 package ru.hogwarts.school.controller;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -79,8 +81,22 @@ public class StudentController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(student.getFaculty());
+
+    }
+    @GetMapping("/count")
+    public long getCount() {
+        return studentRepository.countAllStudents();
+    }
+    @GetMapping("/average-age")
+    public long gerAverageAge(){
+        return studentRepository.avgStudentAge();
     }
 
+    @GetMapping("/latest5")
+    public List<Student> getLatestFive() {
+        // Можно использовать либо findLatestFiveNative, либо метод с Pageable/derived query
+        return studentRepository.findLatestFiveNative();
+    }
 
 }
 

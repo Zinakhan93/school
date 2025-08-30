@@ -25,7 +25,7 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     @Query ("SELECT AVG (age) FROM Student")
     long avgStudentAge();
     // 3) Получение пяти последних студентов (по id DESC) через нативный SQL (LIMIT 5)
-    @Query(value = "SELECT * FROM students s ORDER BY s.id DESC LIMIT 5", nativeQuery = true)
+    @Query(value = "SELECT * FROM student ORDER BY id DESC LIMIT 5", nativeQuery = true)
     List<Student> findLatestFiveNative();
 
 

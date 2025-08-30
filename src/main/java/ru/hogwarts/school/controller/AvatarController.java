@@ -20,6 +20,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/avatar")
@@ -67,11 +68,7 @@ public class AvatarController {
 
     // Дз № 1 по базам данных
     @GetMapping
-    public Page<Avatar> getAvatars(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        return avatarRepository.findAll(pageable);
+    public List<Avatar> getAvatarsByPage(@RequestParam int page, @RequestParam int size) {
+        return avatarService.getAvatarsByPage(page, size);
     }
 }

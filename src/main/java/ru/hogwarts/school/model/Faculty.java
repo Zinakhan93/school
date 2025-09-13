@@ -34,6 +34,8 @@ public class Faculty {
         return id;
     }
 
+
+
     public String getName() {
         return name;
     }

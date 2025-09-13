@@ -11,8 +11,6 @@ SELECT name FROM student;
 select s. *from faculty as f, student as s
 where s.faculty_id = f.id;
 
+/* DELETE FROM faculty WHERE id in (52,2,3,4,5,6,7,8,9,102) удаление строки */
 
-
-
-
-
+ SELECT COUNT(s) FROM Student s

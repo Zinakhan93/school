@@ -13,4 +13,12 @@ where s.faculty_id = f.id;
 
 /* DELETE FROM faculty WHERE id in (52,2,3,4,5,6,7,8,9,102) удаление строки */
 
- SELECT COUNT(s) FROM Student s
+ /*SELECT COUNT(s) FROM Student s*/
+
+
+/*дз
+ */
+ /*CREATE TABLE employee ( id SERIAL PRIMARY KEY, name TEXT NOT NULL, department TEXT NOT NULL, salary NUMERIC(12,2));
+iNSERT INTO employee (name, department, salary) VALUES ('Ivan Petrov', 'Sales', 50000.00), ('Maria Ivanova', 'Sales', 55000.00), ('Petr Sidorov', 'IT', 70000.00), ('Olga Smirnova', 'HR', 40000.00), ('Anna K', 'IT', 72000.00), ('Sergey L', 'Legal', NULL);
+ SELECT department, MAX(salary) AS max_salary, AVG(salary) AS avg_salary FROM employee GROUP BY department HAVING COUNT(*) > 1;*/
+DROP TABLE employee

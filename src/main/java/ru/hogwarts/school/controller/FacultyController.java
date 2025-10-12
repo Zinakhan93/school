@@ -73,7 +73,11 @@ public ResponseEntity<List<Faculty>> searchFaculties(
         }
         return ResponseEntity.ok(faculty.getStudents());
     }
-
+  // Параллельные стримы
+  @GetMapping("/longest-name")
+  public String getLongestFacultyName() {
+      return facultyService.getLongestFacultyName();
+  }
 }
 
 

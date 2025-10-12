@@ -18,5 +18,6 @@ public interface  FacultyService {
     void deleteAllFaculty();
     // ДЗ 2 базза данных
     public List<Faculty> findByNameOrColorIgnoreCase(String name, String color);
-
+    //  параллельные стримы
+    String getLongestFacultyName();
 }

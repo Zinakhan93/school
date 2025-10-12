@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import java.util.Comparator;
 
 
 @Service
@@ -67,5 +68,14 @@ public class FacultyServiceImpl implements FacultyService {
     @Override
     public List<Faculty> findByNameOrColorIgnoreCase(String name, String color) {
         return facultyRepository.findByNameContainingIgnoreCaseOrColorContainingIgnoreCase(name, color);
+    }
+    // Параллельые стримы
+    @Override
+    public String getLongestFacultyName() {
+        logger.info("Was invoked method for getting longest faculty name");
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .orElse("");
     }
 }

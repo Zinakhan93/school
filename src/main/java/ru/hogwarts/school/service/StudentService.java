@@ -22,5 +22,10 @@ public interface StudentService {
     //ДЗ 2 по базам данных
     List<Student> findByAgeBetween(int minAge, int maxAge);
 
+    // Потоки
+    List<Student> getFirstSixStudents();
+    void printStudentName(Student student);
+    void printStudentNameSynchronized(Student student);
+
 
 }

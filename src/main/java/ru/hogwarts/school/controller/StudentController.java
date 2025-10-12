@@ -97,7 +97,86 @@ public class StudentController {
         // Можно использовать либо findLatestFiveNative, либо метод с Pageable/derived query
         return studentRepository.findLatestFiveNative();
     }
+    // потоки
+    @GetMapping("/print-parallel")
+    public void printStudentsParallel() {
+        List<Student> students = studentService.getFirstSixStudents();
 
+        if (students.size() < 6) {
+            System.out.println("Not enough students in database. Need at least 6.");
+            return;
+        }
+
+        // Первые два имени в основном потоке
+        System.out.println("Main thread: " + Thread.currentThread().getName());
+        studentService.printStudentName(students.get(0));
+        studentService.printStudentName(students.get(1));
+
+        // Третий и четвертый студент в параллельном потоке
+        Thread thread1 = new Thread(() -> {
+            System.out.println("Thread 1: " + Thread.currentThread().getName());
+            studentService.printStudentName(students.get(2));
+            studentService.printStudentName(students.get(3));
+        });
+
+        // Пятый и шестой студент в другом параллельном потоке
+        Thread thread2 = new Thread(() -> {
+            System.out.println("Thread 2: " + Thread.currentThread().getName());
+            studentService.printStudentName(students.get(4));
+            studentService.printStudentName(students.get(5));
+        });
+
+        thread1.start();
+        thread2.start();
+
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Threads interrupted");
+        }
+    }
+
+    @GetMapping("/print-synchronized")
+    public void printStudentsSynchronized() {
+        List<Student> students = studentService.getFirstSixStudents();
+
+        if (students.size() < 6) {
+            System.out.println("Not enough students in database. Need at least 6.");
+            return;
+        }
+
+        // Первые два имени в основном потоке
+        System.out.println("Main thread: " + Thread.currentThread().getName());
+        studentService.printStudentNameSynchronized(students.get(0));
+        studentService.printStudentNameSynchronized(students.get(1));
+
+        // Третий и четвертый студент в параллельном потоке
+        Thread thread1 = new Thread(() -> {
+            System.out.println("Thread 1: " + Thread.currentThread().getName());
+            studentService.printStudentNameSynchronized(students.get(2));
+            studentService.printStudentNameSynchronized(students.get(3));
+        });
+
+        // Пятый и шестой студент в другом параллельном потоке
+        Thread thread2 = new Thread(() -> {
+            System.out.println("Thread 2: " + Thread.currentThread().getName());
+            studentService.printStudentNameSynchronized(students.get(4));
+            studentService.printStudentNameSynchronized(students.get(5));
+        });
+
+        thread1.start();
+        thread2.start();
+
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println("Threads interrupted");
+        }
+    }
 }
 
 

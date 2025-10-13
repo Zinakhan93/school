@@ -97,6 +97,16 @@ public class StudentController {
         // Можно использовать либо findLatestFiveNative, либо метод с Pageable/derived query
         return studentRepository.findLatestFiveNative();
     }
+    // Параллельные стримы
+    @GetMapping("/names-starting-with-a")
+    public List<String> getStudentNamesStartingWithA() {
+        return studentService.getStudentNamesStartingWithA();
+    }
+
+    @GetMapping("/average-age-students")
+    public Double getAverageAgeStudents() {
+        return studentService.getAverageAgeStudents();
+    }
 
 }
 

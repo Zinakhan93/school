@@ -15,8 +15,6 @@ public interface StudentRepository extends JpaRepository<Student,Long> {
     List<Student> findByAgeBetween(int minAge, int maxAge);
 
 
-
-
     //   Запросы напрямую в базу данных через URL
     //   JPQL: подсчитать количество студентов
     @Query("SELECT COUNT(s) FROM Student s")

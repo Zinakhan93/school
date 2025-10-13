@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Collection;
 import java.util.List;
-
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -76,5 +76,25 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findByAgeBetween(minAge, maxAge);
     }
 
+    // Параллельные стримы
+    @Override
+    public List<String> getStudentNamesStartingWithA() {
+        logger.info("Was invoked method for getting student names starting with A");
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .filter(name -> name.toUpperCase().startsWith("А"))
+                .map(String::toUpperCase)
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Double getAverageAgeStudents() {
+        logger.info("Was invoked new method for getting average age of students");
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average()
+                .orElse(0.0);
+    }
 
 }

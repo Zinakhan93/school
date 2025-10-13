@@ -22,5 +22,8 @@ public interface StudentService {
     //ДЗ 2 по базам данных
     List<Student> findByAgeBetween(int minAge, int maxAge);
 
+    // ДЗ по паралельным стримам
+    List<String> getStudentNamesStartingWithA();
+    Double getAverageAgeStudents();
 
 }
